@@ -29,21 +29,16 @@ function sortearAmigo(){
    resultado.style.display = "block";
    resultado.style.color = "purple";
    lista_NomesSorteados.splice(indexDoSorteio, 1); 
-   exibirLista();
    limparCaixadeTexto();
    document.getElementById('listaAmigos').style.display = "none";
 
-   if (lista_NomesSorteados.length === 1){
-           resultado.innerHTML = `O amigo secreto sorteado é: <span style="color: purple;">${nomeSorteado}</span>`;
-         resultado.style.display = "block";
-         alert("Apenas um amigo secreto restante! Você pode limpar a lista ou sortear novamente.");
-   }
-
-   // Se a lista ficou vazia após o sorteio, mostra o alerta
+   // Se a lista ficou vazia após o sorteio, mostra o alerta depois de exibir o último nome
    if (lista_NomesSorteados.length === 0) {
-       alert("Todos os amigos secretos foram sorteados!");
-       document.getElementById('resultado').style.display = "none";
-       document.getElementById('listaAmigos').style.display = "none";
+       setTimeout(function() {
+           alert("Todos os amigos secretos foram sorteados!");
+           document.getElementById('resultado').style.display = "none";
+           document.getElementById('listaAmigos').style.display = "none";
+       }, 300); // Pequeno delay para garantir que o usuário veja o último nome sorteado
    }
 }
 
@@ -52,17 +47,13 @@ function sortearAmigo(){
 // Adiciona o nome à lista e exibe a lista atualizada
 function adicionarAmigo() {
     let nome = document.querySelector("input").value;
-    
-
     if (nome === "") {
         alert("Por favor, digite um nome válido.");
         return;
     }
     lista_NomesSorteados.push(nome);
-    let listaa = document.getElementById('listaAmigos');
-    exibirLista();
+    exibirLista(); // Mostra a lista ao adicionar
     limparCaixadeTexto();
-    
 }
 
 // Exibi os elementos da lista de amigos na tela
